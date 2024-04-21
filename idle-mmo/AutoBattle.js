@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Idle MMO Automation
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      1.0
 // @description  在Battle页面，自动点击Start Hunt按钮和Battle Max按钮。
 // @author       Jaord Sun
 // @match        https://web.idle-mmo.com/*

@@ -15,3 +15,9 @@
 3. Alt+B，跳转Battle页面
 4. Alt+I，跳转Inventory页面
 5. Alt+W，跳转Woodcutting页面
+
+## 文件
+
+`AutoBattle.js`  自动战斗脚本
+
+`Shortcut.js`  网页跳转快捷键

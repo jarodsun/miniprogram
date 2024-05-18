@@ -167,6 +167,7 @@
 
     // 通用函数：处理菜单导航
     function handleMenuNavigation(e, id) {
+        e.preventDefault(); // 阻止默认行为
         const rows = document.querySelectorAll(`#${id}-container > ul`);
         const numRows = rows.length;
         const numCols = rows[currentRow].children.length;
@@ -197,6 +198,7 @@
 
     // 处理怪物列表导航
     function handleMonsterNavigation(e) {
+        e.preventDefault(); // 阻止默认行为
         const monsterListItems = document.querySelectorAll('#monster-list li');
         const numMonsters = monsterListItems.length;
 
@@ -326,7 +328,7 @@
             'div.text-center button[type="submit"]'
         );
         if (battleButton) {
-            console.log("点击Battle按钮");
+            // console.log("点击Battle按钮");
             battleButton.click();
         } else {
             console.log("Battle按钮不存在");

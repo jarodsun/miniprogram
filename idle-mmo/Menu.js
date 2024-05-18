@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Idle MMO Menu
 // @namespace    http://tampermonkey.net/
-// @version      1.3
+// @version      1.4
 // @description  游戏菜单和战斗菜单，使用通用函数创建菜单面板和项目信息。
 // @author       Jaord Sun
 // @match        https://web.idle-mmo.com/*
@@ -69,7 +69,7 @@
             menuContent += `</ul>`;
         });
         
-        menuContent += `</div><button onclick="toggleMenu('${id}')">Close Menu</button>`;
+        menuContent += `</div>`;
         menuPanel.innerHTML = menuContent;
         
         document.body.appendChild(menuPanel);
@@ -110,9 +110,9 @@
     // 创建战斗菜单
     const battleMenuItems = [
         [
-            { label: 'Start Battle', href: '/battle/start' },
-            { label: 'Battle Max', href: '/battle/max' },
-            { label: 'Auto Battle', href: '/battle/auto' }
+            { label: 'Battle', href: '/battle' },
+            { label: 'Battle Max', href: '#' },
+            { label: 'Auto Battle', href: '#' }
         ],
         [
             { label: 'Hunt', onclick: 'handleHunt()' },
@@ -209,6 +209,7 @@
                 break;
             case 'Enter':
                 monsters[currentMonsterIndex].button.click();
+                setTimeout(clickBattleButton, 100); // 等待100ms后点击Battle按钮
                 return; // No need to update focus after clicking
             case 'Escape':
                 closeMonsterPanel(); // Close monster panel on Escape key
@@ -299,7 +300,7 @@
     monsterPanel.id = "monster-panel";
     monsterPanel.style.cssText =
         "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px; z-index: 1000; width: 200px; display: none;";
-    monsterPanel.innerHTML = `<h3>Monsters</h3><ul id="monster-list"></ul><button onclick="closeMonsterPanel()">Close</button>`;
+    monsterPanel.innerHTML = `<h3>Monsters</h3><ul id="monster-list"></ul>`;
 
     document.body.appendChild(monsterPanel);
 
@@ -318,4 +319,17 @@
         }
     `;
     document.head.appendChild(style);
+
+    // 自动点击Battle按钮的函数
+    function clickBattleButton() {
+        const battleButton = document.querySelector(
+            'div.text-center button[type="submit"]'
+        );
+        if (battleButton) {
+            console.log("点击Battle按钮");
+            battleButton.click();
+        } else {
+            console.log("Battle按钮不存在");
+        }
+    }
 })();

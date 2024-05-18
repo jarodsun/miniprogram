@@ -12,18 +12,24 @@
   "use strict";
 
   const monsterMap = {
-    "iR395gp1qTHRoLAGJQ7gbtFaewpgue-metad2l6YXJkLnBuZw==-":"Cultist",
-    "s6U8V5YpxRaaEDyQRzXT50r1jzo6IQ-metaYm9hci5wbmc=-":"Boar",
-    "nPkp0ZRC5w1geeiPrSErVF9XzNHtK1-metaZGVlci5wbmc=-":"Deer",
-    "yQeoiiEKR3Pz5gELIENMMTUaNtQKi4-metaZ2VuaWUucG5n-":"Djinn",
-    "qcvqFhkILdQw7KERMGuSbYwwKw9UO5-metaZ29yZ29uLnBuZw==-":"Gorgon",
-    "hYWjCxJenGKwSf8yQnlRBqnWv9XxWf-metabWFsZ2F6YXIucG5n-":"BOSS : Malgazar",
+    "BbFrAHBkgPgeIoH3CYPBgftF9xVAsZ-metacmFiYml0LnBuZw==-": "Rabbit",
+    "twGfp1Ijkvy2RoDyfxI4pNQV22S9OM-metaZHVjay5wbmc=-": "Duck",
+    "g1C5bzqltirL8kOyRh0YivzykocuS5-metaZ29ibGluLnBuZw==-": "Goblin",
+    "MJyIgbYBnhEGoUIROnsjVpyrXqAn5N-metaa2luZyBnb2JsaW4ucG5n-": "Goblin King",
+    "slGUwMeiU4U6cvDSxAXLxMHKt1qCXb-metaaXNhZG9yYS5wbmc=-": "BOSS : Isadora",
+    "iR395gp1qTHRoLAGJQ7gbtFaewpgue-metad2l6YXJkLnBuZw==-": "Cultist",
+    "s6U8V5YpxRaaEDyQRzXT50r1jzo6IQ-metaYm9hci5wbmc=-": "Boar",
+    "nPkp0ZRC5w1geeiPrSErVF9XzNHtK1-metaZGVlci5wbmc=-": "Deer",
+    "yQeoiiEKR3Pz5gELIENMMTUaNtQKi4-metaZ2VuaWUucG5n-": "Djinn",
+    "qcvqFhkILdQw7KERMGuSbYwwKw9UO5-metaZ29yZ29uLnBuZw==-": "Gorgon",
+    "hYWjCxJenGKwSf8yQnlRBqnWv9XxWf-metabWFsZ2F6YXIucG5n-": "BOSS : Malgazar",
     "wpwz5FQLd6zUlqcdrjb3n4IkqxyJjT-metac2tlbGV0b24ucG5n-": "Skeleton Warrior",
     "Zx8R3Xy0k8yV04SmReHDfCMamGXJ0T-metaYnVmZmFsby5wbmc=-": "Buffalo",
     "E2NtgabSRR5dN7u0skGQbfYSIE4nGS-metad3JhaXRoIG5ldy5wbmc=-": "Spectre",
     "b5gPdhGIxCJbeQEqQZly8waX98EYtN-metac2xpbWUgKHJlcGxhY2UgdGhlIG9sZCBvbmUpLnBuZw==-":
       "Slimeball",
-      "AYzG7bQA2PryP8KC8Ayywi2d2284uY-metab2JzaWRpYW51cy5wbmc=-":"BOSS : Obsidianus",
+    "AYzG7bQA2PryP8KC8Ayywi2d2284uY-metab2JzaWRpYW51cy5wbmc=-":
+      "BOSS : Obsidianus",
     "0tPQgRb3d7O1hd5vV2zWDG9h283sSW-metacGlyYXRlLnBuZw==-": "Pirate",
     "vjbKfYYvK5rzBDN9bWCRZlFrgFMOtd-metab3JnZS5wbmc=-": "Ogre",
     "y5a9vDL55uqi64fhNCFR7Cd5Dqx4pq-metaem9tYmllIChyZXBsYWNlIHRoZSBvbGQgb25lIGNvbXBsZXRlbHkpLnBuZw==-":
@@ -33,7 +39,8 @@
     "uRelsuUwFtCbTCzhHBwJFJUS36ahLn-metaYmVhc3QgKHJlcGxhY2UgdGhlIG9sZCBvbmUpLnBuZw==-":
       "Shadow Beast",
     "VYjiuEvsxGQ2yLtVxJIYCNSPzgeHhQ-metaZWxrLnBuZw==-": "Elk",
-    "IBzH3zhbJJOZwXGzJnBVbVPzPsOvde-metac2hhZG93bWlyZS5wbmc=-":"BOSS : Shadowmire",
+    "IBzH3zhbJJOZwXGzJnBVbVPzPsOvde-metac2hhZG93bWlyZS5wbmc=-":
+      "BOSS : Shadowmire",
   };
 
   let monsters = []; // Define monsters array in the global scope
@@ -119,4 +126,59 @@
       });
     }
   });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey && e.key.toLowerCase() === "t") {
+      clickHuntAgentButton(); // 切换菜单显示
+    }
+  });
+
+  function clickHuntAgentButton() {
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const startHuntAgentButton = buttons.find((btn) =>
+      btn.textContent.includes("Hunt Again")
+    );
+    if (startHuntAgentButton) {
+      // console.log("点击Hunt Again按钮");
+      startHuntAgentButton.click();
+    } else {
+      // console.log("Hunt Again按钮不存在");
+    }
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey && e.key.toLowerCase() === "l") {
+      clickBattleButton(); // 切换菜单显示
+    }
+  });
+
+  function clickBattleButton() {
+    const battleButton = document.querySelector(
+      'div.text-center button[type="submit"]'
+    );
+    if (battleButton) {
+      console.log("点击Battle按钮");
+      battleButton.click();
+    } else {
+      console.log("Battle按钮不存在");
+    }
+  }
+
+  document.addEventListener("keydown", function (e) {
+    if (e.altKey && e.key.toLowerCase() === "c") {
+      clickBattleButton(); // 切换菜单显示
+    }
+  });
+
+  function clickCampaignLink() {
+    const characterLink = document.querySelector(
+      'a[href="https://web.idle-mmo.com/campaign"]'
+    );
+    if (characterLink) {
+      // console.log("点击Character链接");
+      characterLink.click();
+    } else {
+      // console.log("Character链接不存在");
+    }
+  }
 })();

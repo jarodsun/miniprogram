@@ -25,7 +25,11 @@
         items.forEach((row, rowIndex) => {
             menuContent += `<ul id="${id}-items-row${rowIndex + 1}" style="margin-right: 20px;">`;
             row.forEach(item => {
-                menuContent += `<li tabindex="0"><button onclick="window.location.href='${item.href}'">${item.label}</button></li>`;
+                if (item.onclick) {
+                    menuContent += `<li tabindex="0"><button onclick="${item.onclick}">${item.label}</button></li>`;
+                } else {
+                    menuContent += `<li tabindex="0"><button onclick="window.location.href='${item.href}'">${item.label}</button></li>`;
+                }
             });
             menuContent += `</ul>`;
         });
@@ -74,6 +78,9 @@
             { label: 'Start Battle', href: '/battle/start' },
             { label: 'Battle Max', href: '/battle/max' },
             { label: 'Auto Battle', href: '/battle/auto' }
+        ],
+        [
+            { label: 'Hunt', onclick: 'handleHunt()' }
         ]
     ];
     const battleMenuPanel = createMenuPanel('battle-menu-panel', 'Battle Menu', battleMenuItems);
@@ -145,6 +152,24 @@
         }
 
         updateFocus(id);
+    }
+
+    window.handleHunt = function() {
+        const buttons = Array.from(document.querySelectorAll("button"));
+        const startHuntButton = buttons.find((btn) =>
+            btn.textContent.includes("Start Hunt")
+        );
+        const startHuntAgentButton = buttons.find((btn) =>
+            btn.textContent.includes("Hunt Again")
+        );
+
+        if (startHuntButton) {
+            startHuntButton.click();
+        } else if (startHuntAgentButton) {
+            startHuntAgentButton.click();
+        } else {
+            console.log("No Hunt button found.");
+        }
     }
 
     // Add focused class styling

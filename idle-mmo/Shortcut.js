@@ -15,70 +15,103 @@
     if (e.altKey) {
       switch (e.key.toLowerCase()) {
         case "c":
-          console.log("按下了Alt+C");
+          // console.log("按下了Alt+C");
           clickCharacterLink();
           break;
         case "b":
-          console.log("按下了Alt+B");
+          // console.log("按下了Alt+B");
           clickBattleLink();
           break;
         case "i":
-          console.log("按下了Alt+I");
+          // console.log("按下了Alt+I");
           clickInventoryLink();
           break;
         case "w":
-          console.log("按下了Alt+W");
+          // console.log("按下了Alt+W");
           clickWoodcuttingLink();
           break;
         case "m":
-          console.log("按下了Alt+M");
+          // console.log("按下了Alt+M");
           clickMiningLink();
           break;
         case "h":
-          console.log("按下了Alt+H");
+          // console.log("按下了Alt+H");
           clickFishingLink();
           break;
         case "a":
-          console.log("按下了Alt+A");
+          // console.log("按下了Alt+A");
           clickAlchemyLink();
           break;
         case "s":
-          console.log("按下了Alt+S");
+          // console.log("按下了Alt+S");
           clickSmeltingLink();
           break;
         case "k":
-          console.log("按下了Alt+K");
+          // console.log("按下了Alt+K");
           clickCookingLink();
           break;
         case "g":
-          console.log("按下了Alt+G");
+          // console.log("按下了Alt+G");
           clickForgeLink();
           break;
         case "r":
-          console.log("按下了Alt+R");
+          // console.log("按下了Alt+R");
           clickMarketLink();
           break;
         case "v":
-          console.log("按下了Alt+V");
+          // console.log("按下了Alt+V");
           clickVendorLink();
           break;
         case "p":
-          console.log("按下了Alt+P");
+          // console.log("按下了Alt+P");
           clickPetsLink();
+          break;
+        case "t":
+          // console.log("按下了Alt+T");
+          clickHuntAgentButton();
+          break;
+        case "l":
+          // console.log("按下了Alt+L");
+          clickBattleButton();
           break;
       }
     }
   });
+
+  function clickBattleButton() {
+    const battleButton = document.querySelector(
+      'div.text-center button[type="submit"]'
+    );
+    if (battleButton) {
+      console.log("点击Battle按钮");
+      battleButton.click();
+    } else {
+      console.log("Battle按钮不存在");
+    }
+  }
+
+  function clickHuntAgentButton() {
+    const buttons = Array.from(document.querySelectorAll("button"));
+    const startHuntAgentButton = buttons.find((btn) =>
+      btn.textContent.includes("Hunt Again")
+    );
+    if (startHuntAgentButton) {
+      // console.log("点击Hunt Again按钮");
+      startHuntAgentButton.click();
+    } else {
+      // console.log("Hunt Again按钮不存在");
+    }
+  }
 
   function clickCharacterLink() {
     const characterLink = document.querySelector(
       'a[href="https://web.idle-mmo.com/profile"]'
     );
     if (characterLink) {
-      console.log("点击Character链接");
+      // console.log("点击Character链接");
       characterLink.click();
     } else {
-      console.log("Character链接不存在");
+      // console.log("Character链接不存在");
     }
   }
 
@@ -87,10 +120,10 @@
       'a[href="https://web.idle-mmo.com/battle"]'
     );
     if (battleLink) {
-      console.log("点击Battle链接");
+      // console.log("点击Battle链接");
       battleLink.click();
     } else {
-      console.log("Battle链接不存在");
+      // console.log("Battle链接不存在");
     }
   }
 
@@ -99,10 +132,10 @@
       'a[href="https://web.idle-mmo.com/inventory"]'
     );
     if (inventoryLink) {
-      console.log("点击Inventory链接");
+      // console.log("点击Inventory链接");
       inventoryLink.click();
     } else {
-      console.log("Inventory链接不存在");
+      // console.log("Inventory链接不存在");
     }
   }
 
@@ -111,10 +144,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/woodcutting"]'
     );
     if (woodcuttingLink) {
-      console.log("点击Woodcutting链接");
+      // console.log("点击Woodcutting链接");
       woodcuttingLink.click();
     } else {
-      console.log("Woodcutting链接不存在");
+      // console.log("Woodcutting链接不存在");
     }
   }
   function clickMiningLink() {
@@ -122,10 +155,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/mining"]'
     );
     if (miningLink) {
-      console.log("点击Mining链接");
+      // console.log("点击Mining链接");
       miningLink.click();
     } else {
-      console.log("Mining链接不存在");
+      // console.log("Mining链接不存在");
     }
   }
 
@@ -134,10 +167,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/fishing"]'
     );
     if (fishingLink) {
-      console.log("点击Fishing链接");
+      // console.log("点击Fishing链接");
       fishingLink.click();
     } else {
-      console.log("Fishing链接不存在");
+      // console.log("Fishing链接不存在");
     }
   }
 
@@ -146,10 +179,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/alchemy"]'
     );
     if (alchemyLink) {
-      console.log("点击Alchemy链接");
+      // console.log("点击Alchemy链接");
       alchemyLink.click();
     } else {
-      console.log("Alchemy链接不存在");
+      // console.log("Alchemy链接不存在");
     }
   }
 
@@ -158,10 +191,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/smelting"]'
     );
     if (smeltingLink) {
-      console.log("点击Smelting链接");
+      // console.log("点击Smelting链接");
       smeltingLink.click();
     } else {
-      console.log("Smelting链接不存在");
+      // console.log("Smelting链接不存在");
     }
   }
 
@@ -170,10 +203,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/cooking"]'
     );
     if (cookingLink) {
-      console.log("点击Cooking链接");
+      // console.log("点击Cooking链接");
       cookingLink.click();
     } else {
-      console.log("Cooking链接不存在");
+      // console.log("Cooking链接不存在");
     }
   }
 
@@ -182,10 +215,10 @@
       'a[href="https://web.idle-mmo.com/skills/view/forge"]'
     );
     if (forgeLink) {
-      console.log("点击Forge链接");
+      // console.log("点击Forge链接");
       forgeLink.click();
     } else {
-      console.log("Forge链接不存在");
+      // console.log("Forge链接不存在");
     }
   }
 
@@ -194,10 +227,10 @@
       'a[href="https://web.idle-mmo.com/market/listings"]'
     );
     if (marketLink) {
-      console.log("点击Market链接");
+      // console.log("点击Market链接");
       marketLink.click();
     } else {
-      console.log("Market链接不存在");
+      // console.log("Market链接不存在");
     }
   }
 
@@ -206,10 +239,10 @@
       'a[href="https://web.idle-mmo.com/vendor/shop"]'
     );
     if (vendorLink) {
-      console.log("点击Vendor链接");
+      // console.log("点击Vendor链接");
       vendorLink.click();
     } else {
-      console.log("Vendor链接不存在");
+      // console.log("Vendor链接不存在");
     }
   }
 
@@ -218,10 +251,10 @@
       'a[href="https://web.idle-mmo.com/pets"]'
     );
     if (petsLink) {
-      console.log("点击Pets链接");
+      // console.log("点击Pets链接");
       petsLink.click();
     } else {
-      console.log("Pets链接不存在");
+      // console.log("Pets链接不存在");
     }
   }
 })();

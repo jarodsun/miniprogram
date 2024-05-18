@@ -12,6 +12,12 @@
   "use strict";
 
   const monsterMap = {
+    "iR395gp1qTHRoLAGJQ7gbtFaewpgue-metad2l6YXJkLnBuZw==-":"Cultist",
+    "s6U8V5YpxRaaEDyQRzXT50r1jzo6IQ-metaYm9hci5wbmc=-":"Boar",
+    "nPkp0ZRC5w1geeiPrSErVF9XzNHtK1-metaZGVlci5wbmc=-":"Deer",
+    "yQeoiiEKR3Pz5gELIENMMTUaNtQKi4-metaZ2VuaWUucG5n-":"Djinn",
+    "qcvqFhkILdQw7KERMGuSbYwwKw9UO5-metaZ29yZ29uLnBuZw==-":"Gorgon",
+    "hYWjCxJenGKwSf8yQnlRBqnWv9XxWf-metabWFsZ2F6YXIucG5n-":"BOSS : Malgazar",
     "wpwz5FQLd6zUlqcdrjb3n4IkqxyJjT-metac2tlbGV0b24ucG5n-": "Skeleton Warrior",
     "Zx8R3Xy0k8yV04SmReHDfCMamGXJ0T-metaYnVmZmFsby5wbmc=-": "Buffalo",
     "E2NtgabSRR5dN7u0skGQbfYSIE4nGS-metad3JhaXRoIG5ldy5wbmc=-": "Spectre",

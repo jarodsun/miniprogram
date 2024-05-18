@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Idle MMO Menu
 // @namespace    http://tampermonkey.net/
-// @version      1.2
+// @version      1.3
 // @description  游戏菜单和战斗菜单，使用通用函数创建菜单面板和项目信息。
 // @author       Jaord Sun
 // @match        https://web.idle-mmo.com/*
@@ -13,6 +13,7 @@
 
     let currentRow = 0;
     let currentCol = 0;
+    let currentMonsterIndex = 0;
 
     const monsterMap = {
         "BbFrAHBkgPgeIoH3CYPBgftF9xVAsZ-metacmFiYml0LnBuZw==-": "Rabbit",
@@ -159,6 +160,8 @@
             handleMenuNavigation(e, 'game-menu-panel');
         } else if (document.getElementById('battle-menu-panel').style.display === 'block') {
             handleMenuNavigation(e, 'battle-menu-panel');
+        } else if (document.getElementById('monster-panel').style.display === 'block') {
+            handleMonsterNavigation(e);
         }
     });
 
@@ -184,9 +187,51 @@
             case 'Enter':
                 rows[currentRow].children[currentCol].querySelector('button').click();
                 return; // No need to update focus after clicking
+            case 'Escape':
+                toggleMenu(id); // Hide menu on Escape key
+                return;
         }
 
         updateFocus(id);
+    }
+
+    // 处理怪物列表导航
+    function handleMonsterNavigation(e) {
+        const monsterListItems = document.querySelectorAll('#monster-list li');
+        const numMonsters = monsterListItems.length;
+
+        switch (e.key) {
+            case 'ArrowUp':
+                currentMonsterIndex = (currentMonsterIndex - 1 + numMonsters) % numMonsters;
+                break;
+            case 'ArrowDown':
+                currentMonsterIndex = (currentMonsterIndex + 1) % numMonsters;
+                break;
+            case 'Enter':
+                monsters[currentMonsterIndex].button.click();
+                return; // No need to update focus after clicking
+            case 'Escape':
+                closeMonsterPanel(); // Close monster panel on Escape key
+                return;
+        }
+
+        updateMonsterFocus();
+    }
+
+    // 更新怪物列表项焦点
+    function updateMonsterFocus() {
+        const monsterListItems = document.querySelectorAll('#monster-list li');
+
+        // Remove focus from all items
+        monsterListItems.forEach(item => {
+            item.classList.remove('focused');
+        });
+
+        // Add focus to the current item
+        const currentItem = monsterListItems[currentMonsterIndex];
+        currentItem.classList.add('focused');
+        currentItem.focus();
+        currentItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     window.handleHunt = function() {
@@ -211,12 +256,11 @@
         const panel = document.getElementById("monster-panel");
         const battleMenuPanel = document.getElementById("battle-menu-panel");
         if (panel.style.display === "none") {
-            panel.style.display = "block"; // 显示面板
-            panel.style.top = battleMenuPanel.style.top;
-            panel.style.left = `calc(${battleMenuPanel.style.left} + ${battleMenuPanel.offsetWidth}px + 10px)`;
+            battleMenuPanel.style.display = "none"; // 隐藏战斗菜单
+            panel.style.display = "block"; // 显示怪物面板
             listAndChooseMonster();
-        } else {
-            panel.style.display = "none"; // 隐藏面板
+            currentMonsterIndex = 0; // Reset to the first monster
+            updateMonsterFocus(); // Update focus to the first monster
         }
     }
 
@@ -245,26 +289,31 @@
                 }
             }
         });
+
+        currentMonsterIndex = 0; // Reset to the first monster
+        updateMonsterFocus(); // Update focus to the first monster
     }
 
     // 创建怪物面板
     const monsterPanel = document.createElement("div");
     monsterPanel.id = "monster-panel";
     monsterPanel.style.cssText =
-        "position: fixed; top: 50%; left: calc(50% + 220px); transform: translateY(-50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px; z-index: 1000; width: 200px; display: none;";
-    monsterPanel.innerHTML = `<h3>Monsters</h3><ul id="monster-list"></ul><button onclick="closePanel()">Close</button>`;
+        "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px; z-index: 1000; width: 200px; display: none;";
+    monsterPanel.innerHTML = `<h3>Monsters</h3><ul id="monster-list"></ul><button onclick="closeMonsterPanel()">Close</button>`;
 
     document.body.appendChild(monsterPanel);
 
-    window.closePanel = function() {
+    window.closeMonsterPanel = function() {
         const panel = document.getElementById("monster-panel");
         panel.style.display = "none";
+        document.getElementById("battle-menu-panel").style.display = "block"; // 显示战斗菜单
+        updateFocus('battle-menu-panel'); // Return focus to battle menu
     }
 
     // Add focused class styling
     const style = document.createElement('style');
     style.textContent = `
-        #game-menu-panel ul li.focused, #battle-menu-panel ul li.focused {
+        #game-menu-panel ul li.focused, #battle-menu-panel ul li.focused, #monster-list li.focused {
             background-color: #555; /* Highlight color for focused item */
         }
     `;

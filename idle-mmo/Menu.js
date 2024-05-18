@@ -14,6 +14,7 @@
     let currentRow = 0;
     let currentCol = 0;
     let currentMonsterIndex = 0;
+    let autoBattleInterval = null; // Add a variable to track the auto battle interval
 
     const monsterMap = {
         "BbFrAHBkgPgeIoH3CYPBgftF9xVAsZ-metacmFiYml0LnBuZw==-": "Rabbit",
@@ -112,7 +113,7 @@
         [
             { label: 'Battle', href: '/battle' },
             { label: 'Battle Max', href: '#' },
-            { label: 'Auto Battle', href: '#' }
+            { label: 'Auto Battle', onclick: 'toggleAutoBattle()' } // Add onclick event for Auto Battle
         ],
         [
             { label: 'Hunt', onclick: 'handleHunt()' },
@@ -364,6 +365,56 @@
             battleButton.click();
         } else {
             console.log("Battle按钮不存在");
+        }
+    }
+
+    // 自动战斗的函数
+    let lastHuntTime = 0;
+    let lastBattleTime = 0;
+
+    function clickButton() {
+        const buttons = Array.from(document.querySelectorAll("button"));
+        const startHuntButton = buttons.find((btn) =>
+            btn.textContent.includes("Start Hunt")
+        );
+        const battleMaxButton = buttons.find((btn) =>
+            btn.textContent.includes("Battle Max")
+        );
+
+        const currentTime = Date.now();
+
+        if (
+            startHuntButton &&
+            !startHuntButton.disabled &&
+            currentTime - lastHuntTime > 60000
+        ) {
+            console.log("Clicking Start Hunt button.");
+            startHuntButton.click();
+            lastHuntTime = currentTime; // Update last hunt time
+        } else if (
+            battleMaxButton &&
+            !battleMaxButton.disabled &&
+            currentTime - lastBattleTime > 30000
+        ) {
+            console.log("Clicking Battle Max button.");
+            battleMaxButton.click();
+            lastBattleTime = currentTime; // Update last battle time
+        } else {
+            console.log(
+                "No actionable buttons available or waiting for next available time."
+            );
+        }
+    }
+
+    // 切换自动战斗功能
+    window.toggleAutoBattle = function() {
+        if (autoBattleInterval) {
+            clearInterval(autoBattleInterval);
+            autoBattleInterval = null;
+            console.log("Auto Battle stopped.");
+        } else {
+            autoBattleInterval = setInterval(clickButton, 30000); // Check buttons every 30 seconds
+            console.log("Auto Battle started.");
         }
     }
 })();

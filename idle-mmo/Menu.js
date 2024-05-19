@@ -112,8 +112,8 @@
     const battleMenuItems = [
         [
             { label: 'Battle', href: '/battle' },
-            { label: 'Battle Max', href: '#' },
-            { label: 'Auto Battle', onclick: 'toggleAutoBattle()' } // Add onclick event for Auto Battle
+            { label: 'Auto Battle', onclick: 'toggleAutoBattle()' }, // Add onclick event for Auto Battle
+            { label: 'Stop Auto Battle', onclick: 'stopAutoBattle()' } // Add onclick event for Stop Auto Battle
         ],
         [
             { label: 'Hunt', onclick: 'handleHunt()' },
@@ -339,6 +339,8 @@
     // 自动战斗的函数
     let lastHuntTime = 0;
     let lastBattleTime = 0;
+    let huntWaitTime = 0;
+    let battleWaitTime = 0;
 
     function clickButton() {
         const buttons = Array.from(document.querySelectorAll("button"));
@@ -351,26 +353,24 @@
 
         const currentTime = Date.now();
 
-        if (
-            startHuntButton &&
-            !startHuntButton.disabled &&
-            currentTime - lastHuntTime > 60000
-        ) {
-            console.log("Clicking Start Hunt button.");
-            startHuntButton.click();
-            lastHuntTime = currentTime; // Update last hunt time
-        } else if (
-            battleMaxButton &&
-            !battleMaxButton.disabled &&
-            currentTime - lastBattleTime > 30000
-        ) {
-            console.log("Clicking Battle Max button.");
-            battleMaxButton.click();
-            lastBattleTime = currentTime; // Update last battle time
+        if (startHuntButton && !startHuntButton.disabled) {
+            if (currentTime - lastHuntTime > huntWaitTime) {
+                console.log("Clicking Start Hunt button.");
+                startHuntButton.click();
+                lastHuntTime = currentTime; // Update last hunt time
+            } else {
+                console.log("Waiting for Start Hunt button cooldown.");
+            }
+        } else if (battleMaxButton && !battleMaxButton.disabled) {
+            if (currentTime - lastBattleTime > battleWaitTime) {
+                console.log("Clicking Battle Max button.");
+                battleMaxButton.click();
+                lastBattleTime = currentTime; // Update last battle time
+            } else {
+                console.log("Waiting for Battle Max button cooldown.");
+            }
         } else {
-            console.log(
-                "No actionable buttons available or waiting for next available time."
-            );
+            console.log("No actionable buttons available or waiting for next available time.");
         }
     }
 
@@ -381,8 +381,22 @@
             autoBattleInterval = null;
             console.log("Auto Battle stopped.");
         } else {
-            autoBattleInterval = setInterval(clickButton, 30000); // Check buttons every 30 seconds
+            // 提示用户输入等待时间
+            huntWaitTime = parseInt(prompt("请输入 Start Hunt 按钮的等待时间（秒）："), 10) * 1000;
+            battleWaitTime = parseInt(prompt("请输入 Battle Max 按钮的等待时间（秒）："), 10) * 1000;
+
+            autoBattleInterval = setInterval(clickButton, 1000); // Check buttons every second
             console.log("Auto Battle started.");
+        }
+    }
+
+    window.stopAutoBattle = function() {
+        if (autoBattleInterval) {
+            clearInterval(autoBattleInterval);
+            autoBattleInterval = null;
+            console.log("Auto Battle stopped.");
+        } else {
+            console.log("Auto Battle is not running.");
         }
     }
 })();

@@ -54,12 +54,12 @@
     function createMenuPanel(id, title, items) {
         const menuPanel = document.createElement('div');
         menuPanel.id = id;
-        menuPanel.classList.add('menu-panel');
+        menuPanel.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 20px; border-radius: 10px; z-index: 1000; display: none;';
         
-        let menuContent = `<h2>${title}</h2><div id="${id}-container" class="menu-container">`;
+        let menuContent = `<h2>${title}</h2><div id="${id}-container" style="display: flex; flex-wrap: wrap; justify-content: space-around;">`;
         
         items.forEach((row, rowIndex) => {
-            menuContent += `<ul id="${id}-items-row${rowIndex + 1}" class="menu-row">`;
+            menuContent += `<ul id="${id}-items-row${rowIndex + 1}" style="margin-right: 20px;">`;
             row.forEach(item => {
                 if (item.onclick) {
                     menuContent += `<li tabindex="0"><button onclick="${item.onclick}">${item.label}</button></li>`;
@@ -301,7 +301,8 @@
     // 创建怪物面板
     const monsterPanel = document.createElement("div");
     monsterPanel.id = "monster-panel";
-    monsterPanel.classList.add('monster-panel');
+    monsterPanel.style.cssText =
+        "position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(0, 0, 0, 0.8); color: white; padding: 10px; border-radius: 5px; z-index: 1000; width: 200px; display: none;";
     monsterPanel.innerHTML = `<h3>Monsters</h3><ul id="monster-list"></ul>`;
 
     document.body.appendChild(monsterPanel);
@@ -316,40 +317,7 @@
     // Add focused class styling
     const style = document.createElement('style');
     style.textContent = `
-        .menu-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            z-index: 1000;
-            display: none;
-        }
-        .menu-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-        }
-        .menu-row {
-            margin-right: 20px;
-        }
-        .monster-panel {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
-            z-index: 1000;
-            width: 200px;
-            display: none;
-        }
-        .focused {
+        #game-menu-panel ul li.focused, #battle-menu-panel ul li.focused, #monster-list li.focused {
             background-color: #555; /* Highlight color for focused item */
         }
     `;

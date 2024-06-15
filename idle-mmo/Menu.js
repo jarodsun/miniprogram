@@ -117,6 +117,7 @@
         ],
         [
             { label: 'Hunt', onclick: 'handleHunt()' },
+            { label: 'Battle Max', onclick: 'handleBattleMax()' },
             { label: 'Find Monster', onclick: 'showMonsterPanel()' }
         ]
     ];
@@ -253,6 +254,19 @@
             startHuntAgentButton.click();
         } else {
             console.error("No Hunt button found.");
+        }
+    }
+
+    window.handleBattleMax = function() {
+        const buttons = Array.from(document.querySelectorAll("button"));
+        const startBattleMaxButton = buttons.find((btn) =>
+            btn.textContent.includes("Battle Max")
+        );
+        
+        if (startBattleMaxButton) {
+            startBattleMaxButton.click();
+        } else {
+            console.error("No Battle button found.");
         }
     }
 
